@@ -1,0 +1,1 @@
+- @FocusState require deployment target version at least 15.0 so we need to replace with UITextfield which is provied by UIKit. However, this approach will bring up the textfield keep expanding issue. So using this function `setContentCompressionResistancePriority(_:, _:)` to solve this issue.
