@@ -12,16 +12,14 @@ enum InputField {
 }
 
 struct LoginView: View {
-    
     @State var email: String = ""
     @State var password: String = ""
-
-    @State var focusedField: InputField? = .email
+    @State var focusedField: InputField? = nil
     
     var body: some View {
         VStack {
             /// @FocusState require deployment target version at least 15.0
-            /// so we need to replace with UITextfield which is provied by UIKit
+            /// so we need to replace with `UITextfield` which is provied by UIKit
             VStack {
                 CustomUITextField(
                     text: $email,
@@ -42,11 +40,7 @@ struct LoginView: View {
             
             
             Button {
-                if focusedField == .email {
-                    focusedField = .password
-                } else {
-                    focusedField = nil
-                }
+                focusedField = focusedField == .email ? .password : nil
             } label: {
                 Text("Next")
             }

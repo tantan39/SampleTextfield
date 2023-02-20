@@ -13,8 +13,8 @@ struct CustomUITextField: UIViewRepresentable {
         @Binding var focusedField: InputField?
         
         let fieldKind: InputField
-        fileprivate var didBecomeFirstResponder: Bool? = nil
-        fileprivate var didResignFirstResponder: Bool? = nil
+        fileprivate var didBecomeFirstResponder: Bool = false
+        fileprivate var didResignFirstResponder: Bool = false
 
         init(text: Binding<String>, fieldKind: InputField, focusedField: Binding<InputField?>) {
             _text = text
@@ -61,7 +61,7 @@ struct CustomUITextField: UIViewRepresentable {
             uiView.becomeFirstResponder()
             context.coordinator.didBecomeFirstResponder = true
             context.coordinator.didResignFirstResponder = false
-        } else if !isFirstResponder && context.coordinator.didResignFirstResponder != true {
+        } else if !isFirstResponder && context.coordinator.didResignFirstResponder != true && fieldKind == .password {
             uiView.resignFirstResponder()
             context.coordinator.didResignFirstResponder = true
             context.coordinator.didBecomeFirstResponder = false
