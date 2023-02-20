@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B440B8DC29A4126B00EB7516 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B440B8DB29A4126B00EB7516 /* LoginView.swift */; };
 		B4628DC229A3D54D001A0CFF /* ValidateTextfieldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4628DC129A3D54D001A0CFF /* ValidateTextfieldApp.swift */; };
 		B4628DC429A3D54D001A0CFF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4628DC329A3D54D001A0CFF /* ContentView.swift */; };
 		B4628DC629A3D54D001A0CFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4628DC529A3D54D001A0CFF /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B440B8DB29A4126B00EB7516 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B4628DBE29A3D54D001A0CFF /* ValidateTextfield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ValidateTextfield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4628DC129A3D54D001A0CFF /* ValidateTextfieldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateTextfieldApp.swift; sourceTree = "<group>"; };
 		B4628DC329A3D54D001A0CFF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 				B4628DC129A3D54D001A0CFF /* ValidateTextfieldApp.swift */,
 				B4628DC329A3D54D001A0CFF /* ContentView.swift */,
 				B4628DCF29A3FDA9001A0CFF /* CustomUITextfield.swift */,
+				B440B8DB29A4126B00EB7516 /* LoginView.swift */,
 				B4628DC529A3D54D001A0CFF /* Assets.xcassets */,
 				B4628DC729A3D54D001A0CFF /* Preview Content */,
 			);
@@ -142,6 +145,7 @@
 			files = (
 				B4628DC429A3D54D001A0CFF /* ContentView.swift in Sources */,
 				B4628DD029A3FDA9001A0CFF /* CustomUITextfield.swift in Sources */,
+				B440B8DC29A4126B00EB7516 /* LoginView.swift in Sources */,
 				B4628DC229A3D54D001A0CFF /* ValidateTextfieldApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

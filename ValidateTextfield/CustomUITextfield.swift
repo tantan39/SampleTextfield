@@ -10,12 +10,16 @@ import SwiftUI
 struct CustomUITextField: UIViewRepresentable {
     class Coordinator: NSObject, UITextFieldDelegate {
         @Binding var text: String
-
+        @Binding var focusedField: InputField?
+        
+        let fieldKind: InputField
         fileprivate var didBecomeFirstResponder: Bool? = nil
         fileprivate var didResignFirstResponder: Bool? = nil
 
-        init(text: Binding<String>) {
+        init(text: Binding<String>, fieldKind: InputField, focusedField: Binding<InputField?>) {
             _text = text
+            self.fieldKind = fieldKind
+            _focusedField = focusedField
         }
 
         func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -23,10 +27,18 @@ struct CustomUITextField: UIViewRepresentable {
                 self.text = textField.text ?? ""
             }
         }
+        
+        func textFieldDidBeginEditing(_ textField: UITextField) {
+            focusedField = fieldKind
+        }
     }
 
     @Binding var text: String
+    @Binding var focusedField: InputField?
+    
+    let fieldKind: InputField
     var isFirstResponder: Bool
+    let placeHolder: String?
 
     func makeUIView(context: UIViewRepresentableContext<CustomUITextField>) -> UITextField {
         let textField = UITextField(frame: .zero)
@@ -34,13 +46,13 @@ struct CustomUITextField: UIViewRepresentable {
         textField.layer.borderColor = UIColor.darkGray.cgColor
         textField.layer.borderWidth = 0.1
         textField.layer.cornerRadius = 15
-        textField.placeholder = "Placeholder..."
+        textField.placeholder = placeHolder
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return textField
     }
 
     func makeCoordinator() -> CustomUITextField.Coordinator {
-        return Coordinator(text: $text)
+        return Coordinator(text: $text, fieldKind: fieldKind, focusedField: $focusedField)
     }
 
     func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<CustomUITextField>) {
