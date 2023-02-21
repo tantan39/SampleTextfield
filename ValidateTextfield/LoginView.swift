@@ -7,40 +7,35 @@
 
 import SwiftUI
 
-enum InputField {
-    case email, password
-}
-
 struct LoginView: View {
     @State var email: String = ""
     @State var password: String = ""
-    @State var focusedField: InputField? = nil
+    @State var isEmailFocusing: Bool = true
+    @State var isPasswordFocusing: Bool = false
+    @State var models: [Bool] = [
+        true,
+        false,
+    ]
     
     var body: some View {
         VStack {
             /// @FocusState require deployment target version at least 15.0
             /// so we need to replace with `UITextfield` which is provied by UIKit
             VStack {
-                CustomUITextField(
-                    text: $email,
-                    focusedField: $focusedField,
-                    fieldKind: .email,
-                    isFirstResponder: focusedField == .email,
-                    placeHolder: "Enter email")
-                .frame(width: 200, height: 40)
-                
-                CustomUITextField(
-                    text: $password,
-                    focusedField: $focusedField,
-                    fieldKind: .password,
-                    isFirstResponder: focusedField == .password,
-                    placeHolder: "Enter password")
-                .frame(width: 200, height: 40)
+                ForEach(Array(models.enumerated()), id: \.offset) { index, element in
+                    CustomUITextField(
+                        text: $email,
+                        isFocus: element,
+                        isLastItem: index == models.count - 1,
+                        placeHolder: "Enter email")
+                    .frame(width: 200, height: 40)
+                }
             }
             
-            
             Button {
-                focusedField = focusedField == .email ? .password : nil
+                for (idx, _) in models.enumerated() {
+                    models[idx].toggle()
+                }
             } label: {
                 Text("Next")
             }

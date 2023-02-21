@@ -10,16 +10,11 @@ import SwiftUI
 struct CustomUITextField: UIViewRepresentable {
     class Coordinator: NSObject, UITextFieldDelegate {
         @Binding var text: String
-        @Binding var focusedField: InputField?
-        
-        let fieldKind: InputField
         fileprivate var didBecomeFirstResponder: Bool = false
         fileprivate var didResignFirstResponder: Bool = false
 
-        init(text: Binding<String>, fieldKind: InputField, focusedField: Binding<InputField?>) {
+        init(text: Binding<String>) {
             _text = text
-            self.fieldKind = fieldKind
-            _focusedField = focusedField
         }
 
         func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -27,17 +22,11 @@ struct CustomUITextField: UIViewRepresentable {
                 self.text = textField.text ?? ""
             }
         }
-        
-        func textFieldDidBeginEditing(_ textField: UITextField) {
-            focusedField = fieldKind
-        }
     }
 
     @Binding var text: String
-    @Binding var focusedField: InputField?
-    
-    let fieldKind: InputField
-    var isFirstResponder: Bool
+    var isFocus: Bool
+    var isLastItem: Bool
     let placeHolder: String?
 
     func makeUIView(context: UIViewRepresentableContext<CustomUITextField>) -> UITextField {
@@ -52,16 +41,16 @@ struct CustomUITextField: UIViewRepresentable {
     }
 
     func makeCoordinator() -> CustomUITextField.Coordinator {
-        return Coordinator(text: $text, fieldKind: fieldKind, focusedField: $focusedField)
+        return Coordinator(text: $text)
     }
 
     func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<CustomUITextField>) {
         uiView.text = text
-        if isFirstResponder && context.coordinator.didBecomeFirstResponder != true{
+        if isFocus && context.coordinator.didBecomeFirstResponder != true{
             uiView.becomeFirstResponder()
             context.coordinator.didBecomeFirstResponder = true
             context.coordinator.didResignFirstResponder = false
-        } else if !isFirstResponder && context.coordinator.didResignFirstResponder != true && fieldKind == .password {
+        } else if !isFocus && context.coordinator.didResignFirstResponder != true && isLastItem {
             uiView.resignFirstResponder()
             context.coordinator.didResignFirstResponder = true
             context.coordinator.didBecomeFirstResponder = false
